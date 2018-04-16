@@ -96,7 +96,7 @@ python script/interactivate.py --model data/models/20180416-acc9d06d.mdl
 
 Then you will drop into an interactive session. It looks like:
 
-```python
+```
 * Interactive Module *
 
 * Repo: Mnemonic Reader (https://github.com/HKUST-KnowComp/MnemonicReader)
@@ -106,15 +106,15 @@ Then you will drop into an interactive session. It looks like:
 >>> process(document, question, candidates=None, top_n=1)
 >>> usage()
 
->>> text = "Mary had a little lamb, whose fleece was white as snow. And everywhere that Mary went the lamb was sure to go."
->>> question = "What color is Mary's lamb?"
+>>> text="Architecturally, the school has a Catholic character. Atop the Main Building's gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \"Venite Ad Me Omnes\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary."
+>>> question = "To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?"
 >>> process(text, question)
 
-+------+-------+---------+
-| Rank |  Span |  Score  |
-+------+-------+---------+
-|  1   | white | 0.78002 |
-+------+-------+---------+
++------+----------------------------+-----------+
+| Rank |            Span            |   Score   |
++------+----------------------------+-----------+
+|  1   | Saint Bernadette Soubirous | 0.9875301 |
++------+----------------------------+-----------+
 ```
 
 ### More parameters

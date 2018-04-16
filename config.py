@@ -34,8 +34,8 @@ def add_model_args(parser):
     parser.register('type', 'bool', str2bool)
 
     # Model architecture
-    model = parser.add_argument_group('WRMCQA Reader Model Architecture')
-    model.add_argument('--model-type', type=str, default='rnn',
+    model = parser.add_argument_group('Reader Model Architecture')
+    model.add_argument('--model-type', type=str, default='mnemonic',
                        help='Model architecture type: rnn, r_net, mnemonic')
     model.add_argument('--embedding-dim', type=int, default=300,
                        help='Embedding size if embedding_file is not given')
@@ -53,7 +53,7 @@ def add_model_args(parser):
                        help='RNN type: LSTM, GRU, or RNN')
 
     # Model specific details
-    detail = parser.add_argument_group('WRMCQA Reader Model Details')
+    detail = parser.add_argument_group('Reader Model Details')
     detail.add_argument('--concat-rnn-layers', type='bool', default=True,
                         help='Combine hidden states from each encoding layer')
     detail.add_argument('--question-merge', type=str, default='self_attn',
@@ -74,7 +74,7 @@ def add_model_args(parser):
                         help='The number of hops for both aligner and the answer pointer in m-reader')
 
     # Optimization details
-    optim = parser.add_argument_group('WRMCQA Reader Optimization')
+    optim = parser.add_argument_group('Reader Optimization')
     optim.add_argument('--dropout-emb', type=float, default=0.2,
                        help='Dropout rate for word embeddings')
     optim.add_argument('--dropout-rnn', type=float, default=0.2,

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright 2018-present, Xin Liu and HKUST-KnowComp.
+# Copyright 2018-present, HKUST-KnowComp.
 # All rights reserved.
 #
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
-"""A script to run the WRMCQA reader model interactively."""
+"""A script to run the reader model interactively."""
 
 import sys
 sys.path.append('.')
