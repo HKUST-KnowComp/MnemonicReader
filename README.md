@@ -54,8 +54,8 @@ unzip glove.840B.300d.zip
 Then, you need to preprocess these data.
 
 ```bash
-python script/preprocess data/datasets data/datasets --split SQuAD-train-v1.1
-python script/preprocess data/datasets data/datasets --split SQuAD-dev-v1.1
+python script/preprocess.py data/datasets data/datasets --split SQuAD-train-v1.1
+python script/preprocess.py data/datasets data/datasets --split SQuAD-dev-v1.1
 ```
 
 If you want to use multicores to speed up, you could add `--num-workers 4` in commands.
