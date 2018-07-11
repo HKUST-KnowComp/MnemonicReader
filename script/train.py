@@ -367,7 +367,7 @@ def eval_accuracies(pred_s, target_s, pred_e, target_e):
 
         # Both start and end match
         if any([1 for _s, _e in zip(target_s[i], target_e[i])
-                if _s == pred_s[i] and _e == pred_e[i]]):
+                if _s == torch.from_numpy(pred_s[i]) and _e == torch.from_numpy(pred_e[i])]):
             em.update(1)
         else:
             em.update(0)
