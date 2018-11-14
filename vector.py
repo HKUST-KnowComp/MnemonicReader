@@ -19,9 +19,9 @@ def vectorize(ex, model, single_answer=False):
 
     # Index words
     document = torch.LongTensor([word_dict[w] for w in ex['document']])
-    document_char = torch.LongTensor([char_dict[w] for w in ex['document_char']])
+    document_char = torch.LongTensor([char_dict[c] for c in ex['document_char']])
     question = torch.LongTensor([word_dict[w] for w in ex['question']])
-    question_char = torch.LongTensor([char_dict[w] for w in ex['question_char']])
+    question_char = torch.LongTensor([char_dict[c] for c in ex['question_char']])
 
     # Create extra features vector
     if len(feature_dict) > 0:

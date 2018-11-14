@@ -28,9 +28,6 @@ class RnnDocReader(nn.Module):
         self.embedding = nn.Embedding(args.vocab_size,
                                       args.embedding_dim,
                                       padding_idx=0)
-        self.char_embedding = nn.Embedding(args.char_size,
-                                      args.char_embedding_dim,
-                                      padding_idx=0)
 
         # Projection for attention weighted question
         if args.use_qemb:

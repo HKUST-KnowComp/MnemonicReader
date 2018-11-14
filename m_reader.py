@@ -127,8 +127,8 @@ class MnemonicReader(nn.Module):
             x2_c_emb = F.dropout(x2_c_emb, p=self.args.dropout_emb, training=self.training)
 
         # Generate char features
-        x1_c_features = self.char_rnn(x1_c_emb, x1_mask)
-        x2_c_features = self.char_rnn(x2_c_emb, x2_mask)
+        x1_c_features = self.char_rnn(x1_c_emb, x1_mask)[:,-1,:]
+        x2_c_features = self.char_rnn(x2_c_emb, x2_mask)[:,-1,:]
 
         # Combine input
         crnn_input = [x1_emb, x1_c_features]
