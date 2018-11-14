@@ -19,9 +19,9 @@ def vectorize(ex, model, single_answer=False):
 
     # Index words
     document = torch.LongTensor([word_dict[w] for w in ex['document']])
-    document_char = torch.LongTensor([char_dict[c] for c in ex['document_char']])
+    document_char = [torch.LongTensor([char_dict[c] for c in cs]) for cs in ex['document_char']]
     question = torch.LongTensor([word_dict[w] for w in ex['question']])
-    question_char = torch.LongTensor([char_dict[c] for c in ex['question_char']])
+    question_char = [torch.LongTensor([char_dict[c] for c in cs]) for cs in ex['question_char']]
 
     # Create extra features vector
     if len(feature_dict) > 0:
@@ -120,8 +120,10 @@ def batchify(batch):
 
     # Batch documents and features
     max_length = max([d.size(0) for d in docs])
+    # max_char_length = max([c.size(0) for cs in doc_chars for c in cs])
+    max_char_length = 13
     x1 = torch.LongTensor(len(docs), max_length).zero_()
-    x1_c = torch.LongTensor(len(docs), max_length).zero_()
+    x1_c = torch.LongTensor(len(docs), max_length, max_char_length).zero_()
     x1_mask = torch.ByteTensor(len(docs), max_length).fill_(1)
     if c_features[0] is None:
         x1_f = None
@@ -132,13 +134,15 @@ def batchify(batch):
         x1_mask[i, :d.size(0)].fill_(0)
         if x1_f is not None:
             x1_f[i, :d.size(0)].copy_(c_features[i])
-    for i, c in enumerate(doc_chars):
-        x1_c[i, :c.size(0)].copy_(c)
+    for i, cs in enumerate(doc_chars):
+        for j, c in enumerate(cs):
+            c_ = c[:max_char_length]
+            x1_c[i, j, :c_.size(0)].copy_(c_)
 
     # Batch questions
     max_length = max([q.size(0) for q in questions])
     x2 = torch.LongTensor(len(questions), max_length).zero_()
-    x2_c = torch.LongTensor(len(questions), max_length).zero_()
+    x2_c = torch.LongTensor(len(questions), max_length, max_char_length).zero_()
     x2_mask = torch.ByteTensor(len(questions), max_length).fill_(1)
     if q_features[0] is None:
         x2_f = None
@@ -149,8 +153,10 @@ def batchify(batch):
         x2_mask[i, :d.size(0)].fill_(0)
         if x2_f is not None:
             x2_f[i, :d.size(0)].copy_(q_features[i])
-    for i, c in enumerate(question_chars):
-        x2_c[i, :c.size(0)].copy_(c)
+    for i, cs in enumerate(question_chars):
+        for j, c in enumerate(cs):
+            c_ = c[:max_char_length]
+            x2_c[i, j, :c_.size(0)].copy_(c_)
 
     # Maybe return without targets
     if len(batch[0]) == NUM_INPUTS + NUM_EXTRA:

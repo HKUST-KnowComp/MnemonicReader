@@ -141,11 +141,12 @@ def index_embedding_chars(char_embedding_file):
 def load_chars(args, examples):
     """Iterate and index all the chars in examples (documents + questions)."""
     def _insert(iterable):
-        for c in iterable:
-            c = Dictionary.normalize(c)
-            if valid_chars and c not in valid_chars:
-                continue
-            chars.add(c)
+        for cs in iterable:
+            for c in cs: 
+                c = Dictionary.normalize(c)
+                if valid_chars and c not in valid_chars:
+                    continue
+                chars.add(c)
 
     if args.restrict_vocab and args.char_embedding_file:
         logger.info('Restricting to chars in %s' % args.char_embedding_file)

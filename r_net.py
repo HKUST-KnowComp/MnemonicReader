@@ -45,7 +45,7 @@ class R_Net(nn.Module):
             dropout_output=args.dropout_rnn_output,
             concat_layers=False,
             rnn_type=self.RNN_TYPES[args.rnn_type],
-            padding=args.rnn_padding,
+            padding=False,
         )
 
         doc_input_size = args.embedding_dim + args.char_hidden_size * 2
@@ -146,8 +146,14 @@ class R_Net(nn.Module):
             x2_c_emb = F.dropout(x2_c_emb, p=self.args.dropout_emb, training=self.training)
 
         # Generate char features
-        x1_c_features = self.char_rnn(x1_c_emb, x1_mask)[:,-1,:]
-        x2_c_features = self.char_rnn(x2_c_emb, x2_mask)[:,-1,:]
+        x1_c_features = self.char_rnn(
+            x1_c_emb.reshape((x1_c_emb.size(0) * x1_c_emb.size(1), x1_c_emb.size(2), x1_c_emb.size(3))), 
+            x1_mask.unsqueeze(2).repeat(1, 1, x1_c_emb.size(2)).reshape((x1_c_emb.size(0) * x1_c_emb.size(1), x1_c_emb.size(2)))
+            ).reshape((x1_c_emb.size(0), x1_c_emb.size(1), x1_c_emb.size(2), -1))[:,:,-1,:]
+        x2_c_features = self.char_rnn(
+            x2_c_emb.reshape((x2_c_emb.size(0) * x2_c_emb.size(1), x2_c_emb.size(2), x2_c_emb.size(3))), 
+            x2_mask.unsqueeze(2).repeat(1, 1, x2_c_emb.size(2)).reshape((x2_c_emb.size(0) * x2_c_emb.size(1), x2_c_emb.size(2)))
+            ).reshape((x2_c_emb.size(0), x2_c_emb.size(1), x2_c_emb.size(2), -1))[:,:,-1,:] 
 
         # Combine input
         crnn_input = [x1_emb, x1_c_features]

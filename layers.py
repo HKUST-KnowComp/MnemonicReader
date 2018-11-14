@@ -55,7 +55,7 @@ class StackedBRNN(nn.Module):
         Output:
             x_encoded: batch * len * hdim_encoded
         """
-        if x_mask.data.sum() == 0:
+        if x_mask.data.sum() == 0 or x_mask.data.eq(1).long().sum(1).min() == 0:
             # No padding necessary.
             output = self._forward_unpadded(x, x_mask)
         elif self.padding or not self.training:

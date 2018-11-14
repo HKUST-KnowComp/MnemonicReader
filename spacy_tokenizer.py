@@ -48,9 +48,9 @@ class Tokens(object):
             uncased: lower cases characters
         """
         if uncased:
-            return [c.lower() for t in self.data for c in t[self.CHAR]]
+            return [[c.lower() for c in t[self.CHAR]] for t in self.data]
         else:
-            return [c for t in self.data for c in t[self.CHAR]]
+            return [[c for c in t[self.CHAR]] for t in self.data]
 
     def words(self, uncased=False):
         """Returns a list of the text of each token
@@ -174,7 +174,6 @@ class SpacyTokenizer(object):
 
             data.append((
                 tokens[i].text,
-                # tokens[i].text[0] if len(tokens[i].text) > 0 else '',
                 list(tokens[i].text),
                 text[start_ws: end_ws],
                 (tokens[i].idx, tokens[i].idx + len(tokens[i].text)),
