@@ -17,10 +17,10 @@ Please feel free to contact with Xin Liu (xliucr@connect.ust.hk) if you have any
 | Document Reader (trained model)       | 69.4   | 78.6   |
 | R-Net (original paper 1)              | 71.1   | 79.5   |
 | R-Net (original paper 2)              | 72.3   | 80.6   |
-| R-Net (trained model)                 | 70.2   | 79.2   |
+| R-Net (trained model)                 | 70.2   | 79.4   |
 | Mnemonic Reader (original paper)      | 71.8   | 81.2   |
 | Mnemonic Reader + RL (original paper) | 72.1   | 81.6   |
-| Mnemonic Reader (trained model)       | 72.3   | 81.4   |
+| Mnemonic Reader (trained model)       | 73.2   | 81.5   |
 
 ![EM_F1](img/EM_F1.png)
 
